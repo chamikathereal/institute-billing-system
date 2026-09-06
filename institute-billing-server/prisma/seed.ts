@@ -50,14 +50,14 @@ async function main() {
   }
 
   // 3. Admin User
-  const passwordHash = await bcrypt.hash('AdminPassword@123', 10);
+  const passwordHash = await bcrypt.hash('Admin@123', 10);
   await prisma.user.upsert({
-    where: { tenantId_email: { tenantId: tenant.id, email: 'admin@nimasfashion.lk' } },
+    where: { tenantId_email: { tenantId: tenant.id, email: 'admin@nimas.' } },
     update: { passwordHash },
     create: {
       tenantId: tenant.id,
       name: 'Nimas Admin',
-      email: 'admin@nimasfashion.lk',
+      email: 'admin@nimas.',
       passwordHash,
       role: 'ADMIN',
       isActive: true,

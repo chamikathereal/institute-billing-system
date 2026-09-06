@@ -79,7 +79,7 @@ export function Header() {
               {user?.name || 'Administrator'}
             </span>
             <span className="text-[10px] text-muted-foreground mt-0.5">
-              {user?.email || 'admin@nimasfashion.lk'}
+              {user?.email || 'admin@nimas.'}
             </span>
           </div>
 

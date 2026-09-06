@@ -76,8 +76,8 @@ export default function LoginPage() {
   };
 
   const fillDemoAdmin = () => {
-    setEmail('admin@nimasfashion.lk');
-    setPassword('AdminPassword@123');
+    setEmail('admin@nimas.edu');
+    setPassword('Admin@123');
   };
 
   return (
@@ -131,8 +131,9 @@ export default function LoginPage() {
                   <span>Administrator Email</span>
                 </label>
                 <Input
-                  type="email"
-                  placeholder="admin@nimasfashion.lk"
+                  type="text"
+                  inputMode="email"
+                  placeholder="admin@nimas."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isSubmitting}
