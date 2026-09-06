@@ -1,0 +1,33 @@
+{
+  "name": "institute-billing-system",
+  "version": "1.0.0",
+  "description": "Multi-Tenant Institute Management, Course Invoicing, Dynamic Discounts & Billing System",
+  "private": true,
+  "workspaces": [
+    "institute-billing-client",
+    "institute-billing-server"
+  ],
+  "scripts": {
+    "dev:server": "npm --workspace=institute-billing-server run start:dev",
+    "dev:client": "npm --workspace=institute-billing-client run dev",
+    "build:server": "npm --workspace=institute-billing-server run build",
+    "build:client": "npm --workspace=institute-billing-client run build",
+    "build": "npm run build:server && npm run build:client",
+    "start:server": "npm --workspace=institute-billing-server run start:prod",
+    "start:client": "npm --workspace=institute-billing-client run start",
+    "prisma:generate": "npm --workspace=institute-billing-server run prisma:generate",
+    "prisma:migrate": "npm --workspace=institute-billing-server run prisma:migrate",
+    "prisma:seed": "npm --workspace=institute-billing-server run seed"
+  },
+  "keywords": [
+    "institute-billing",
+    "monorepo",
+    "nextjs",
+    "nestjs",
+    "prisma",
+    "mysql",
+    "shadcn"
+  ],
+  "author": "Chamika Gayashan",
+  "license": "MIT"
+}
