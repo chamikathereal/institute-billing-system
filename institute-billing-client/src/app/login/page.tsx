@@ -82,59 +82,59 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-gradient-to-br from-neutral-50 via-white to-neutral-100 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 relative overflow-hidden">
+    <div className="h-screen w-screen max-h-screen overflow-hidden flex flex-col justify-center items-center px-4 py-3 sm:py-4 bg-gradient-to-br from-neutral-50 via-white to-neutral-100 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 relative">
       {/* Background Decorative Circles */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-3xl pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[450px] h-[450px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] rounded-full bg-primary/10 blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-md relative z-10 space-y-6">
+      <div className="w-full max-w-md relative z-10 space-y-3 sm:space-y-3.5 my-auto">
         {/* Institute Branding Header */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-primary/10 border border-primary/20 text-primary shadow-sm mb-1">
+        <div className="text-center space-y-1.5">
+          <div className="inline-flex items-center justify-center p-2 rounded-xl bg-primary/10 border border-primary/20 text-primary shadow-xs">
             {logoUrl ? (
               <img
                 src={logoUrl}
                 alt={instituteName}
-                className="w-12 h-12 rounded-xl object-cover"
+                className="w-10 h-10 rounded-lg object-cover"
               />
             ) : (
-              <GraduationCap className="h-10 w-10 text-primary" />
+              <GraduationCap className="h-8 w-8 text-primary" />
             )}
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 font-heading">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 font-heading leading-tight">
             {instituteName}
           </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground max-w-xs mx-auto">
+          <p className="text-xs text-muted-foreground max-w-xs mx-auto line-clamp-1">
             {instituteTagline}
           </p>
         </div>
 
         {/* Login Card */}
-        <Card className="border-border shadow-xl backdrop-blur-sm bg-card/95">
-          <CardHeader className="pb-4">
+        <Card className="border-border shadow-lg backdrop-blur-sm bg-card/95">
+          <CardHeader className="py-3 px-5 pb-2">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                  <Lock className="h-4 w-4 text-primary" />
+                <CardTitle className="text-base font-semibold flex items-center gap-1.5">
+                  <Lock className="h-3.5 w-3.5 text-primary" />
                   <span>Admin Panel Login</span>
                 </CardTitle>
-                <CardDescription className="text-xs mt-1">
-                  Enter your administrative credentials to manage billing and courses
+                <CardDescription className="text-[11px] mt-0.5">
+                  Enter administrative credentials to manage billing and courses
                 </CardDescription>
               </div>
-              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300">
-                <ShieldCheck className="h-3 w-3" />
+              <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300">
+                <ShieldCheck className="h-2.5 w-2.5" />
                 <span>JWT Secure</span>
               </span>
             </div>
           </CardHeader>
 
-          <CardContent className="space-y-4">
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <CardContent className="py-3 px-5 space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-2.5">
               {/* Email field */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                  <Mail className="h-3.5 w-3.5" />
+              <div className="space-y-1">
+                <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                  <Mail className="h-3 w-3" />
                   <span>Administrator Email</span>
                 </label>
                 <Input
@@ -144,15 +144,15 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isSubmitting}
                   required
-                  className="h-10"
+                  className="h-9 text-xs"
                 />
               </div>
 
               {/* Password field */}
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                    <KeyRound className="h-3.5 w-3.5" />
+                  <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                    <KeyRound className="h-3 w-3" />
                     <span>Password</span>
                   </label>
                 </div>
@@ -164,17 +164,17 @@ export default function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={isSubmitting}
                     required
-                    className="h-10 pr-10"
+                    className="h-9 pr-9 text-xs"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeOff className="h-3.5 w-3.5" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-3.5 w-3.5" />
                     )}
                   </button>
                 </div>
@@ -183,18 +183,18 @@ export default function LoginPage() {
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full h-10 font-semibold gap-2 shadow-md"
+                className="w-full h-9 text-xs font-semibold gap-2 shadow-xs mt-1"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <>
-                    <div className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                    <div className="h-3.5 w-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
                     <span>Verifying Session...</span>
                   </>
                 ) : (
                   <>
                     <span>Sign In to Dashboard</span>
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-3.5 w-3.5" />
                   </>
                 )}
               </Button>
@@ -205,9 +205,9 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={fillDemoAdmin}
-                className="w-full py-2 px-3 rounded-lg text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition flex items-center justify-center gap-1.5"
+                className="w-full py-1.5 px-2.5 rounded-md text-[11px] font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition flex items-center justify-center gap-1.5"
               >
-                <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                <Sparkles className="h-3 w-3 text-amber-500" />
                 <span>Fill Default Admin Credentials (Demo)</span>
               </button>
             </div>
@@ -215,21 +215,21 @@ export default function LoginPage() {
         </Card>
 
         {/* Public Student Portal Link */}
-        <div className="text-center p-4 rounded-xl bg-card border border-border shadow-sm">
-          <p className="text-xs text-muted-foreground">
-            Looking for Student Invoices & Payment Timetables?
-          </p>
+        <div className="py-2.5 px-4 rounded-lg bg-card/80 border border-border shadow-xs flex items-center justify-between">
+          <span className="text-[11px] text-muted-foreground">
+            Student looking for invoices?
+          </span>
           <Link
             href="/portal"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline mt-1.5"
+            className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline"
           >
-            <span>Access Passwordless Student Portal</span>
+            <span>Public Student Portal</span>
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
 
         {/* Footer */}
-        <div className="text-center text-[11px] text-muted-foreground">
+        <div className="text-center text-[10px] text-muted-foreground">
           © {new Date().getFullYear()} {instituteName}. Multi-Tenant Institute Billing System.
         </div>
       </div>
