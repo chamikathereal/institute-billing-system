@@ -7,7 +7,6 @@ import { useQuery } from '@tanstack/react-query';
 import {
   Lock,
   Mail,
-  ShieldCheck,
   Eye,
   EyeOff,
   ArrowRight,
@@ -112,20 +111,14 @@ export default function LoginPage() {
         {/* Login Card */}
         <Card className="border-border shadow-lg backdrop-blur-sm bg-card/95">
           <CardHeader className="py-3 px-5 pb-2">
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-base font-semibold flex items-center gap-1.5">
-                  <Lock className="h-3.5 w-3.5 text-primary" />
-                  <span>Admin Panel Login</span>
-                </CardTitle>
-                <CardDescription className="text-[11px] mt-0.5">
-                  Enter administrative credentials to manage billing and courses
-                </CardDescription>
-              </div>
-              <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300">
-                <ShieldCheck className="h-2.5 w-2.5" />
-                <span>JWT Secure</span>
-              </span>
+            <div>
+              <CardTitle className="text-base font-semibold flex items-center gap-1.5">
+                <Lock className="h-3.5 w-3.5 text-primary" />
+                <span>Admin Panel Login</span>
+              </CardTitle>
+              <CardDescription className="text-[11px] mt-0.5">
+                Enter administrative credentials to manage billing and courses
+              </CardDescription>
             </div>
           </CardHeader>
 
