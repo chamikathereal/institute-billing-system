@@ -15,6 +15,7 @@ import { SmsModule } from './sms/sms.module.js';
 import { ReportsModule } from './reports/reports.module.js';
 import { PublicPortalModule } from './public-portal/public-portal.module.js';
 import { DashboardModule } from './dashboard/dashboard.module.js';
+import { AuthModule } from './auth/auth.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 
@@ -24,6 +25,7 @@ import { AppService } from './app.service.js';
     ScheduleModule.forRoot(),
     PrismaModule,
     TenantsModule,
+    AuthModule,
     SettingsModule,
     CoursesModule,
     DiscountsModule,
