@@ -54,3 +54,4 @@ coverage/
 .turbo
 .cache
 .eslintcache
+graphify-out/cache/

@@ -17,7 +17,9 @@
     "start:client": "npm --workspace=institute-billing-client run start",
     "prisma:generate": "npm --workspace=institute-billing-server run prisma:generate",
     "prisma:migrate": "npm --workspace=institute-billing-server run prisma:migrate",
-    "prisma:seed": "npm --workspace=institute-billing-server run seed"
+    "prisma:seed": "npm --workspace=institute-billing-server run seed",
+    "graphify": "graphify extract . --code-only && graphify export html",
+    "graphify:update": "graphify update ."
   },
   "keywords": [
     "institute-billing",
