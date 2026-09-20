@@ -38,8 +38,8 @@ export default function ReportsPage() {
   const { data: courses = [] } = useQuery({
     queryKey: ['courses'],
     queryFn: async () => {
-      const res = await api.get('/courses');
-      return res.data;
+      const res = await api.get('/courses?all=true');
+      return Array.isArray(res.data) ? res.data : res.data?.data || [];
     },
   });
 
@@ -309,9 +309,9 @@ export default function ReportsPage() {
                   <TableHead>Student</TableHead>
                   <TableHead>Course</TableHead>
                   <TableHead>Date</TableHead>
-                  <TableHead className="text-right">Total Fee</TableHead>
-                  <TableHead className="text-right">Paid</TableHead>
-                  <TableHead className="text-right">Balance</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Total Fee (LKR)</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Paid (LKR)</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Balance (LKR)</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Methods</TableHead>
                 </TableRow>
@@ -345,13 +345,13 @@ export default function ReportsPage() {
                           {new Date(item.issueDate).toLocaleDateString()}
                         </TableCell>
                         <TableCell className="text-right font-mono text-xs font-medium">
-                          LKR {Number(item.totalAmount).toLocaleString()}
+                          {Number(item.totalAmount).toLocaleString()}
                         </TableCell>
                         <TableCell className="text-right font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                          LKR {Number(item.paidAmount).toLocaleString()}
+                          {Number(item.paidAmount).toLocaleString()}
                         </TableCell>
                         <TableCell className="text-right font-mono text-xs font-bold text-amber-600 dark:text-amber-400">
-                          LKR {Number(item.balance).toLocaleString()}
+                          {Number(item.balance).toLocaleString()}
                         </TableCell>
                         <TableCell>
                           <Badge

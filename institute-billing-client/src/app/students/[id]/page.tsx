@@ -182,7 +182,7 @@ export default function StudentProfilePage() {
                   </span>
                 )}
                 {student.nic && <span>NIC: {student.nic}</span>}
-                {student.age && <span>Age: {student.age}</span>}
+                {student.birthday && <span>DOB: {new Date(student.birthday).toLocaleDateString('en-CA').replace(/-/g, '/')}</span>}
               </div>
 
               {student.address && (
@@ -317,8 +317,8 @@ export default function StudentProfilePage() {
                     <TableRow>
                       <TableHead>#</TableHead>
                       <TableHead>Installment Title</TableHead>
-                      <TableHead className="text-right">Expected</TableHead>
-                      <TableHead className="text-right">Paid</TableHead>
+                      <TableHead className="text-right whitespace-nowrap">Expected (LKR)</TableHead>
+                      <TableHead className="text-right whitespace-nowrap">Paid (LKR)</TableHead>
                       <TableHead>Due Date</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead className="text-right">Action</TableHead>
@@ -341,10 +341,10 @@ export default function StudentProfilePage() {
                               {inst.title}
                             </TableCell>
                             <TableCell className="text-right font-mono text-xs">
-                              LKR {expected.toLocaleString()}
+                              {expected.toLocaleString()}
                             </TableCell>
                             <TableCell className="text-right font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-                              LKR {paidAmount.toLocaleString()}
+                              {paidAmount.toLocaleString()}
                             </TableCell>
                             <TableCell className="text-xs font-mono text-muted-foreground">
                               {inst.dueDate ? (
@@ -414,7 +414,7 @@ export default function StudentProfilePage() {
                       <TableHead>Date</TableHead>
                       <TableHead>Method</TableHead>
                       <TableHead>Reference / Note</TableHead>
-                      <TableHead className="text-right">Amount</TableHead>
+                      <TableHead className="text-right whitespace-nowrap">Amount (LKR)</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -436,7 +436,7 @@ export default function StudentProfilePage() {
                             {p.reference || p.notes || '-'}
                           </TableCell>
                           <TableCell className="text-right font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400">
-                            + LKR {Number(p.amount).toLocaleString()}
+                            + {Number(p.amount).toLocaleString()}
                           </TableCell>
                         </TableRow>
                       ))

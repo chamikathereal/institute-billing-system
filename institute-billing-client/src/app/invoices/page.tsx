@@ -90,11 +90,11 @@ export default function InvoicesListPage() {
                   <TableHead>Invoice #</TableHead>
                   <TableHead>Student</TableHead>
                   <TableHead>Course</TableHead>
-                  <TableHead className="text-right">Subtotal</TableHead>
-                  <TableHead className="text-right">Discount</TableHead>
-                  <TableHead className="text-right">Total Invoiced</TableHead>
-                  <TableHead className="text-right">Paid</TableHead>
-                  <TableHead className="text-right">Balance</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Subtotal (LKR)</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Discount (LKR)</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Total Invoiced (LKR)</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Paid (LKR)</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Balance (LKR)</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Action</TableHead>
                 </TableRow>
@@ -127,19 +127,19 @@ export default function InvoicesListPage() {
                           {course?.name}
                         </TableCell>
                         <TableCell className="text-right font-mono text-xs text-muted-foreground">
-                          LKR {subtotal.toLocaleString()}
+                          {subtotal.toLocaleString()}
                         </TableCell>
                         <TableCell className="text-right font-mono text-xs text-emerald-600 dark:text-emerald-400">
-                          {discount > 0 ? `- LKR ${discount.toLocaleString()}` : '-'}
+                          {discount > 0 ? `- ${discount.toLocaleString()}` : '-'}
                         </TableCell>
                         <TableCell className="text-right font-mono font-semibold text-xs text-foreground">
-                          LKR {total.toLocaleString()}
+                          {total.toLocaleString()}
                         </TableCell>
                         <TableCell className="text-right font-mono font-semibold text-xs text-emerald-600 dark:text-emerald-400">
-                          LKR {paid.toLocaleString()}
+                          {paid.toLocaleString()}
                         </TableCell>
                         <TableCell className="text-right font-mono font-bold text-xs text-amber-600 dark:text-amber-400">
-                          LKR {balance.toLocaleString()}
+                          {balance.toLocaleString()}
                         </TableCell>
                         <TableCell>
                           <Badge

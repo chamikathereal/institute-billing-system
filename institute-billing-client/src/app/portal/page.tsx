@@ -283,8 +283,8 @@ export default function PublicStudentPortalPage() {
                     <TableRow>
                       <TableHead>#</TableHead>
                       <TableHead>Milestone</TableHead>
-                      <TableHead className="text-right">Expected</TableHead>
-                      <TableHead className="text-right">Paid</TableHead>
+                      <TableHead className="text-right whitespace-nowrap">Expected (LKR)</TableHead>
+                      <TableHead className="text-right whitespace-nowrap">Paid (LKR)</TableHead>
                       <TableHead>Due Date</TableHead>
                       <TableHead>Status</TableHead>
                     </TableRow>
@@ -301,10 +301,10 @@ export default function PublicStudentPortalPage() {
                           </TableCell>
                           <TableCell className="text-xs font-medium">{inst.title}</TableCell>
                           <TableCell className="text-right font-mono text-xs">
-                            LKR {Number(inst.expectedAmount).toLocaleString()}
+                            {Number(inst.expectedAmount).toLocaleString()}
                           </TableCell>
                           <TableCell className="text-right font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-                            LKR {Number(inst.paidAmount).toLocaleString()}
+                            {Number(inst.paidAmount).toLocaleString()}
                           </TableCell>
                           <TableCell className="text-xs font-mono text-muted-foreground">
                             {inst.dueDate
@@ -345,7 +345,7 @@ export default function PublicStudentPortalPage() {
                       <TableHead>Receipt #</TableHead>
                       <TableHead>Date</TableHead>
                       <TableHead>Method</TableHead>
-                      <TableHead className="text-right">Amount</TableHead>
+                      <TableHead className="text-right whitespace-nowrap">Amount (LKR)</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -364,7 +364,7 @@ export default function PublicStudentPortalPage() {
                             </Badge>
                           </TableCell>
                           <TableCell className="text-right font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400">
-                            + LKR {Number(p.amount).toLocaleString()}
+                            + {Number(p.amount).toLocaleString()}
                           </TableCell>
                         </TableRow>
                       ))

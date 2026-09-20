@@ -6,6 +6,10 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Starting seed...');
 
+  console.log('🧹 Cleaning existing data...');
+  const existing = await prisma.tenant.findUnique({ where: { slug: 'nimas-fashion-academy' } });
+  if (existing) await prisma.tenant.delete({ where: { slug: 'nimas-fashion-academy' } });
+
   // 1. Create or ensure Default Tenant: Nimas Fashion Academy
   const tenant = await prisma.tenant.upsert({
     where: { slug: 'nimas-fashion-academy' },
@@ -52,12 +56,12 @@ async function main() {
   // 3. Admin User
   const passwordHash = await bcrypt.hash('Admin@123', 10);
   await prisma.user.upsert({
-    where: { tenantId_email: { tenantId: tenant.id, email: 'admin@nimas.' } },
+    where: { tenantId_email: { tenantId: tenant.id, email: 'admin@nimas.lk' } },
     update: { passwordHash },
     create: {
       tenantId: tenant.id,
       name: 'Nimas Admin',
-      email: 'admin@nimas.',
+      email: 'admin@nimas.lk',
       passwordHash,
       role: 'ADMIN',
       isActive: true,
@@ -175,7 +179,7 @@ async function main() {
       mobile: '0771234567',
       email: 'sanduni.f@gmail.com',
       nic: '200065412345',
-      age: 24,
+      birthday: new Date('2000-03-15'),
       address: '42 Lake View, Kandy, Sri Lanka',
       notes: 'Completed Introductory Dressmaking in 2024.',
     },
@@ -304,7 +308,7 @@ async function main() {
       mobile: '0719876543',
       email: 'kasun.j@gmail.com',
       nic: '199834512789',
-      age: 26,
+      birthday: new Date('1998-07-22'),
       address: '15 Havelock Road, Colombo 05, Sri Lanka',
     },
   });

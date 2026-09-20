@@ -16,6 +16,7 @@ import { ReportsModule } from './reports/reports.module.js';
 import { PublicPortalModule } from './public-portal/public-portal.module.js';
 import { DashboardModule } from './dashboard/dashboard.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { UploadModule } from './upload/upload.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 
@@ -26,6 +27,7 @@ import { AppService } from './app.service.js';
     PrismaModule,
     TenantsModule,
     AuthModule,
+    UploadModule,
     SettingsModule,
     CoursesModule,
     DiscountsModule,

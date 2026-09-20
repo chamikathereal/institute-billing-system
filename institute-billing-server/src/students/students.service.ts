@@ -22,8 +22,8 @@ export class CreateStudentDto {
   @ApiPropertyOptional()
   address?: string;
 
-  @ApiPropertyOptional()
-  age?: number;
+  @ApiPropertyOptional({ description: 'Date of birth in YYYY/MM/DD format', example: '2000/05/15' })
+  birthday?: string;
 
   @ApiPropertyOptional()
   notes?: string;
@@ -88,7 +88,7 @@ export class StudentsService {
         email: dto.email?.trim() || null,
         nic: dto.nic?.trim() || null,
         address: dto.address?.trim() || null,
-        age: dto.age ? Number(dto.age) : null,
+        birthday: dto.birthday ? new Date(dto.birthday.replace(/\//g, '-')) : null,
         notes: dto.notes || null,
       },
     });
@@ -213,7 +213,7 @@ export class StudentsService {
         ...(dto.email !== undefined && { email: dto.email?.trim() || null }),
         ...(dto.nic !== undefined && { nic: dto.nic?.trim() || null }),
         ...(dto.address !== undefined && { address: dto.address?.trim() || null }),
-        ...(dto.age !== undefined && { age: dto.age ? Number(dto.age) : null }),
+        ...(dto.birthday !== undefined && { birthday: dto.birthday ? new Date(dto.birthday.replace(/\//g, '-')) : null }),
         ...(dto.notes !== undefined && { notes: dto.notes || null }),
       },
     });

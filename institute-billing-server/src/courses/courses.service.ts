@@ -50,17 +50,81 @@ export class CoursesService {
     private tenantsService: TenantsService,
   ) {}
 
-  async findAll(tenantId?: string) {
-    const tenant = await this.tenantsService.resolveTenant(tenantId);
+  async findAll(
+    params: {
+      tenantId?: string;
+      page?: number;
+      limit?: number;
+      search?: string;
+      all?: boolean;
+    } = {},
+  ) {
+    const tenant = await this.tenantsService.resolveTenant(params.tenantId);
 
-    return this.prisma.course.findMany({
-      where: { tenantId: tenant.id, status: 'ACTIVE' },
-      include: {
-        schemes: true,
-        _count: { select: { enrollments: true } },
+    const where: any = { tenantId: tenant.id, status: 'ACTIVE' };
+
+    if (params.search && params.search.trim()) {
+      const q = params.search.trim();
+      where.OR = [
+        { name: { contains: q } },
+        { code: { contains: q } },
+        { description: { contains: q } },
+      ];
+    }
+
+    if (params.all) {
+      const courses = await this.prisma.course.findMany({
+        where,
+        include: {
+          schemes: true,
+          _count: { select: { enrollments: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+      });
+      return {
+        data: courses,
+        pagination: {
+          total: courses.length,
+          page: 1,
+          limit: courses.length || 10,
+          totalPages: 1,
+          hasNextPage: false,
+          hasPrevPage: false,
+        },
+      };
+    }
+
+    const page = Math.max(1, params.page || 1);
+    const limit = Math.max(1, params.limit || 10);
+    const skip = (page - 1) * limit;
+
+    const [total, courses] = await Promise.all([
+      this.prisma.course.count({ where }),
+      this.prisma.course.findMany({
+        where,
+        include: {
+          schemes: true,
+          _count: { select: { enrollments: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+    ]);
+
+    const totalPages = Math.ceil(total / limit) || 1;
+
+    return {
+      data: courses,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
       },
-      orderBy: { createdAt: 'asc' },
-    });
+    };
   }
 
   async findOne(id: string) {
@@ -77,16 +141,63 @@ export class CoursesService {
     return course;
   }
 
+  private formatDuration(raw?: string): string {
+    if (!raw || !raw.trim()) return '';
+    const trimmed = raw.trim();
+    const num = parseInt(trimmed, 10);
+    if (!isNaN(num) && /^\d+$/.test(trimmed)) {
+      return `${num} Month${num === 1 ? '' : 's'}`;
+    }
+    return trimmed;
+  }
+
+  async generateNextCourseCode(tenantId?: string): Promise<string> {
+    const tenant = await this.tenantsService.resolveTenant(tenantId);
+    const prefixSetting = await this.prisma.setting.findUnique({
+      where: { tenantId_key: { tenantId: tenant.id, key: 'course_code_prefix' } },
+    });
+    const studentPrefixSetting = await this.prisma.setting.findUnique({
+      where: { tenantId_key: { tenantId: tenant.id, key: 'student_id_prefix' } },
+    });
+    const prefix = prefixSetting?.value || studentPrefixSetting?.value || 'NFA';
+
+    const courses = await this.prisma.course.findMany({
+      where: { tenantId: tenant.id },
+      select: { code: true },
+    });
+
+    let maxNum = courses.length;
+    for (const c of courses) {
+      const match = c.code.match(/\d+$/);
+      if (match) {
+        const val = parseInt(match[0], 10);
+        if (!isNaN(val) && val > maxNum) {
+          maxNum = val;
+        }
+      }
+    }
+
+    let nextNum = maxNum + 1;
+    let candidate = `${prefix}-CRS${String(nextNum).padStart(2, '0')}`;
+    const existingCodes = new Set(courses.map((c) => c.code.toUpperCase()));
+    while (existingCodes.has(candidate.toUpperCase())) {
+      nextNum += 1;
+      candidate = `${prefix}-CRS${String(nextNum).padStart(2, '0')}`;
+    }
+
+    return candidate;
+  }
+
   async create(dto: CreateCourseDto, tenantId?: string) {
     const tenant = await this.tenantsService.resolveTenant(tenantId);
 
-    let code = dto.code;
+    let code = dto.code?.trim();
     if (!code) {
-      const count = await this.prisma.course.count({ where: { tenantId: tenant.id } });
-      code = `CRS-${String(count + 1).padStart(3, '0')}`;
+      code = await this.generateNextCourseCode(tenant.id);
     }
 
     const thumbnail = dto.thumbnailUrl?.trim() || DEFAULT_COURSE_THUMBNAIL;
+    const duration = this.formatDuration(dto.duration);
 
     return this.prisma.course.create({
       data: {
@@ -96,7 +207,7 @@ export class CoursesService {
         description: dto.description || '',
         thumbnailUrl: thumbnail,
         basePrice: dto.basePrice,
-        duration: dto.duration || '',
+        duration,
         status: 'ACTIVE',
         schemes: dto.schemes && dto.schemes.length > 0
           ? {
@@ -129,7 +240,7 @@ export class CoursesService {
           thumbnailUrl: dto.thumbnailUrl.trim() || DEFAULT_COURSE_THUMBNAIL,
         }),
         ...(dto.basePrice !== undefined && { basePrice: dto.basePrice }),
-        ...(dto.duration !== undefined && { duration: dto.duration }),
+        ...(dto.duration !== undefined && { duration: this.formatDuration(dto.duration) }),
       },
       include: { schemes: true },
     });

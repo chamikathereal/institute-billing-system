@@ -1,0 +1,15 @@
+import { v2 as cloudinary } from 'cloudinary';
+
+export const CLOUDINARY = 'CLOUDINARY';
+
+export const CloudinaryProvider = {
+  provide: CLOUDINARY,
+  useFactory: () => {
+    return cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'cssdzcsb',
+      api_key: process.env.CLOUDINARY_API_KEY || '563759351434734',
+      api_secret: process.env.CLOUDINARY_API_SECRET || 'cmxbZBTZ-DDy2WVvMLiL4QUwtos',
+      secure: true,
+    });
+  },
+};

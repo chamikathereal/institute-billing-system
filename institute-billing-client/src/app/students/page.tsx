@@ -78,9 +78,9 @@ export default function StudentsDirectoryPage() {
                   <TableHead>Name & Contact</TableHead>
                   <TableHead>NIC</TableHead>
                   <TableHead>Enrolled Course</TableHead>
-                  <TableHead className="text-right">Total Invoiced</TableHead>
-                  <TableHead className="text-right">Paid</TableHead>
-                  <TableHead className="text-right">Balance</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Total Invoiced (LKR)</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Paid (LKR)</TableHead>
+                  <TableHead className="text-right whitespace-nowrap">Balance (LKR)</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Action</TableHead>
                 </TableRow>
@@ -107,7 +107,6 @@ export default function StudentsDirectoryPage() {
                           <div className="text-xs text-muted-foreground flex items-center gap-1.5 mt-0.5">
                             <Phone className="h-3 w-3" />
                             <span>{student.mobile}</span>
-                            {student.email && <span>• {student.email}</span>}
                           </div>
                         </TableCell>
                         <TableCell className="font-mono text-xs text-muted-foreground">
@@ -123,13 +122,13 @@ export default function StudentsDirectoryPage() {
                           )}
                         </TableCell>
                         <TableCell className="text-right font-mono text-xs font-medium">
-                          LKR {total.toLocaleString()}
+                          {total.toLocaleString()}
                         </TableCell>
                         <TableCell className="text-right font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-                          LKR {paid.toLocaleString()}
+                          {paid.toLocaleString()}
                         </TableCell>
                         <TableCell className="text-right font-mono text-xs font-bold text-amber-600 dark:text-amber-400">
-                          LKR {balance.toLocaleString()}
+                          {balance.toLocaleString()}
                         </TableCell>
                         <TableCell>
                           {isPaid ? (

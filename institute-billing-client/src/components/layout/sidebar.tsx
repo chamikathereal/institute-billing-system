@@ -81,7 +81,9 @@ export function Sidebar() {
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive =
-            item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
+            item.href === '/'
+              ? pathname === '/'
+              : pathname === item.href || (pathname.startsWith(item.href + '/') && !navItems.some((other) => other.href !== item.href && pathname.startsWith(other.href) && other.href.startsWith(item.href) && other.href.length > item.href.length && (pathname === other.href || pathname.startsWith(other.href + '/'))));
 
           return (
             <Link

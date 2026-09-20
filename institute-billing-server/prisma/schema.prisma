@@ -166,7 +166,7 @@ model Student {
   email       String?
   nic         String?  // National Identity Card
   address     String?  @db.Text
-  age         Int?
+  birthday    DateTime?
   notes       String?  @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

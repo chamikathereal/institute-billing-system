@@ -8,9 +8,28 @@ export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Get()
-  @ApiOperation({ summary: 'List all active courses with schemes' })
-  async findAll(@Query('tenantId') tenantId?: string) {
-    return this.coursesService.findAll(tenantId);
+  @ApiOperation({ summary: 'List active courses with pagination and search' })
+  async findAll(
+    @Query('tenantId') tenantId?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') search?: string,
+    @Query('all') all?: string,
+  ) {
+    return this.coursesService.findAll({
+      tenantId,
+      page: page ? parseInt(page, 10) : undefined,
+      limit: limit ? parseInt(limit, 10) : undefined,
+      search,
+      all: all === 'true',
+    });
+  }
+
+  @Get('next-code')
+  @ApiOperation({ summary: 'Get next auto-generated course code' })
+  async getNextCode(@Query('tenantId') tenantId?: string) {
+    const code = await this.coursesService.generateNextCourseCode(tenantId);
+    return { code };
   }
 
   @Get(':id')
